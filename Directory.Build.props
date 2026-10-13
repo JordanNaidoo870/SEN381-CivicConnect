@@ -1,0 +1,1 @@
+<Project><PropertyGroup><LangVersion>14.0</LangVersion><TreatWarningsAsErrors>false</TreatWarningsAsErrors><AnalysisLevel>latest</AnalysisLevel><EnableNETAnalyzers>true</EnableNETAnalyzers><Deterministic>true</Deterministic></PropertyGroup></Project>
