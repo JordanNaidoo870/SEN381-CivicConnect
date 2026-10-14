@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Update Report Status";
+}
+<section class="form-page">
+    <div class="page-back">
+        <a asp-controller="Worker" asp-action="ReportDetails" asp-route-id="@ViewBag.ReportId" class="text-link">← Back to report</a>
+    </div>
+
+<div class="form-page-heading">
+    <span class="eyebrow">REPORT CC-@ViewBag.ReportId</span>
+    <h1>Update Report Status</h1>
+    <p>Demonstration of the report-management interface.</p>
+</div>
+
+<div class="form-card">
+    <form class="demo-form" data-success="The status update has been demonstrated. It has not been saved to a database.">
+        <div class="form-group">
+            <label for="status">New status</label>
+            <select id="status" class="form-select" required>
+                <option value="">Select status</option>
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Resolved</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="comment">Update message</label>
+            <textarea id="comment" class="form-control" rows="4" placeholder="Provide an update for the report..."></textarea>
+        </div>
+
+        <div class="form-actions">
+            <a asp-controller="Worker" asp-action="Dashboard" class="btn btn-outline-civic">Cancel</a>
+            <button type="submit" class="btn btn-civic-primary">Save Update →</button>
+        </div>
+    </form>
+</div>
+</section>

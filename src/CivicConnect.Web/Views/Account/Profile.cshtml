@@ -1,0 +1,34 @@
+@{
+    ViewData["Title"] = "Log in";
+}
+<section class="form-page">
+    <div class="form-page-heading">
+        <span class="eyebrow">ACCOUNT SETTINGS</span>
+        <h1>My Profile</h1>
+        <p>View your account information.</p>
+    </div>
+<div class="form-card">
+    <div class="profile-avatar">TK</div>
+    <h2 class="profile-name">Tshepo Koitheng</h2>
+    <p class="profile-description">Community Member · Demonstration Account</p>
+
+    <form class="demo-form" data-success="Your profile changes have been demonstrated. No information was saved.">
+        <div class="form-group">
+            <label for="name">Full name</label>
+            <input id="name" class="form-control" value="Tshepo Koitheng" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input id="email" type="email" class="form-control" value="member@example.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input id="phone" type="tel" class="form-control" value="071 234 5678">
+        </div>
+
+        <button type="submit" class="btn btn-civic-primary">Save Changes →</button>
+    </form>
+</div>
+</section>

@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Worker Dashboard";
+}
+
+<section class="dashboard-page">
+    <div class="dashboard-heading">
+        <div>
+            <span class="eyebrow">INTERNAL OPERATIONS</span>
+            <h1>Worker Dashboard</h1>
+            <p class="page-description">Review community issues and monitor their progress.</p>
+        </div>
+
+    <a asp-controller="Worker" asp-action="Reports" class="btn btn-civic-primary">Manage Reports →</a>
+</div>
+
+<div class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Total Reports</span>
+        <strong class="stat-number">124</strong>
+        <span class="stat-description">All recorded reports</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Pending</span>
+        <strong class="stat-number">38</strong>
+        <span class="stat-description">Require review</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">In Progress</span>
+        <strong class="stat-number">26</strong>
+        <span class="stat-description">Currently being addressed</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Resolved</span>
+        <strong class="stat-number">60</strong>
+        <span class="stat-description">Marked as completed</span>
+    </article>
+</div>
+
+<section class="dashboard-section">
+    <div class="section-heading section-heading-row">
+        <div>
+            <h2>Recent Community Reports</h2>
+            <p>Review the latest reports submitted by community members.</p>
+        </div>
+
+        <a asp-controller="Worker" asp-action="Reports" class="text-link">View all →</a>
+    </div>
+
+    <div class="content-card table-responsive">
+        <table class="table civic-table align-middle">
+            <thead>
+                <tr><th>Reference</th><th>Report</th><th>Location</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>CC-1001</td><td><strong>Potholes on main road</strong></td><td>Soweto</td><td><span class="status-badge status-progress">In Progress</span></td><td><a asp-action="ReportDetails" asp-route-id="1001" class="text-link">Review →</a></td></tr>
+                <tr><td>CC-1002</td><td><strong>Broken streetlight</strong></td><td>Orlando</td><td><span class="status-badge status-pending">Pending</span></td><td><a asp-action="ReportDetails" asp-route-id="1002" class="text-link">Review →</a></td></tr>
+                <tr><td>CC-1003</td><td><strong>Water leak near park</strong></td><td>Diepkloof</td><td><span class="status-badge status-resolved">Resolved</span></td><td><a asp-action="ReportDetails" asp-route-id="1003" class="text-link">Review →</a></td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</section>

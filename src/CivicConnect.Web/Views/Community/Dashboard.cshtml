@@ -1,0 +1,93 @@
+@{
+    ViewData["Title"] = "Community Dashboard";
+}
+
+<section class="dashboard-page">
+    <div class="dashboard-heading">
+        <div>
+            <span class="eyebrow">YOUR COMMUNITY, YOUR VOICE</span>
+            <h1>Community Dashboard</h1>
+            <p class="page-description">Keep track of your reports and the issues that matter to you.</p>
+        </div>
+    <a asp-controller="Community" asp-action="SubmitReport"
+       class="btn btn-civic-primary">+ Submit a Report</a>
+</div>
+
+<div class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">My Reports</span>
+        <strong class="stat-number">08</strong>
+        <span class="stat-description">Reports submitted</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Pending</span>
+        <strong class="stat-number">03</strong>
+        <span class="stat-description">Awaiting attention</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">In Progress</span>
+        <strong class="stat-number">02</strong>
+        <span class="stat-description">Being addressed</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Resolved</span>
+        <strong class="stat-number">03</strong>
+        <span class="stat-description">Issues completed</span>
+    </article>
+</div>
+
+<section class="dashboard-section">
+    <div class="section-heading section-heading-row">
+        <div>
+            <h2>My Recent Reports</h2>
+            <p>Review your submissions and follow their progress.</p>
+        </div>
+
+        <a asp-controller="Community" asp-action="MyReports"
+           class="text-link">View all reports →</a>
+    </div>
+
+    <div class="content-card table-responsive">
+        <table class="table civic-table align-middle">
+            <thead>
+                <tr>
+                    <th>Report</th>
+                    <th>Location</th>
+                    <th>Date Submitted</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><strong>Potholes on main road</strong><small>CC-1001</small></td>
+                    <td>Soweto</td>
+                    <td>08 Oct 2026</td>
+                    <td><span class="status-badge status-progress">In Progress</span></td>
+                    <td><a asp-controller="Community" asp-action="ReportDetails" asp-route-id="1001" class="text-link">View →</a></td>
+                </tr>
+
+                <tr>
+                    <td><strong>Broken streetlight</strong><small>CC-1002</small></td>
+                    <td>Orlando</td>
+                    <td>06 Oct 2026</td>
+                    <td><span class="status-badge status-pending">Pending</span></td>
+                    <td><a asp-controller="Community" asp-action="ReportDetails" asp-route-id="1002" class="text-link">View →</a></td>
+                </tr>
+
+                <tr>
+                    <td><strong>Water leak near park</strong><small>CC-1003</small></td>
+                    <td>Diepkloof</td>
+                    <td>02 Oct 2026</td>
+                    <td><span class="status-badge status-resolved">Resolved</span></td>
+                    <td><a asp-controller="Community" asp-action="ReportDetails" asp-route-id="1003" class="text-link">View →</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</section>

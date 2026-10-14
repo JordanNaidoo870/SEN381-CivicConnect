@@ -1,0 +1,181 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-page">
+    <section class="dashboard-heading">
+        <div>
+            <p class="eyebrow">YOUR COMMUNITY, YOUR VOICE</p>
+            <h1>Community Dashboard</h1>
+            <p class="page-description">
+                Report local issues, follow their progress, and see
+                what is happening in your community.
+            </p>
+        </div>
+
+        <a class="btn btn-civic-primary"
+           asp-controller="Requests"
+           asp-action="Create">
+            + Submit a Report
+        </a>
+    </section>
+
+    <section class="stats-grid" aria-label="Community report statistics">
+        <article class="stat-card">
+            <div class="stat-label">Community Reports</div>
+            <div class="stat-number">24</div>
+            <div class="stat-description">Reports submitted</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-label">Pending</div>
+            <div class="stat-number">8</div>
+            <div class="stat-description">Awaiting attention</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-label">In Progress</div>
+            <div class="stat-number">6</div>
+            <div class="stat-description">Being addressed</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-label">Resolved</div>
+            <div class="stat-number">10</div>
+            <div class="stat-description">Marked as resolved</div>
+        </article>
+    </section>
+
+    <section class="dashboard-section">
+        <div class="section-heading">
+            <div>
+                <h2>Community Reports</h2>
+                <p>See issues reported by people in your community.</p>
+            </div>
+
+            <a asp-controller="Requests"
+               asp-action="Community"
+               class="text-link">
+                View all reports →
+            </a>
+        </div>
+
+        <div class="content-card">
+            <div class="table-responsive">
+                <table class="table civic-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Report</th>
+                            <th>Category</th>
+                            <th>Location</th>
+                            <th>Date Reported</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Pothole on main road</strong>
+                                <small>CC-001</small>
+                            </td>
+                            <td>Roads</td>
+                            <td>Soweto</td>
+                            <td>12 Oct 2026</td>
+                            <td><span class="status-badge status-progress">In Progress</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>Streetlight not working</strong>
+                                <small>CC-002</small>
+                            </td>
+                            <td>Electricity</td>
+                            <td>Orlando</td>
+                            <td>11 Oct 2026</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>Illegal dumping</strong>
+                                <small>CC-003</small>
+                            </td>
+                            <td>Waste</td>
+                            <td>Diepkloof</td>
+                            <td>10 Oct 2026</td>
+                            <td><span class="status-badge status-resolved">Resolved</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>Water leak</strong>
+                                <small>CC-004</small>
+                            </td>
+                            <td>Water</td>
+                            <td>Protea Glen</td>
+                            <td>9 Oct 2026</td>
+                            <td><span class="status-badge status-progress">In Progress</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>Damaged pavement</strong>
+                                <small>CC-005</small>
+                            </td>
+                            <td>Roads</td>
+                            <td>Meadowlands</td>
+                            <td>8 Oct 2026</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-footer">
+                <span>Example reports for dashboard design</span>
+                <a asp-controller="Requests"
+                   asp-action="Community"
+                   class="text-link">
+                    Explore community reports →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-bottom">
+        <div class="bottom-info-card">
+            <div>
+                <p class="eyebrow">YOUR SUBMISSIONS</p>
+                <h2>Keep track of your reports</h2>
+                <p>
+                    View the reports you have submitted and check their
+                    current status and history.
+                </p>
+            </div>
+
+            <a class="btn btn-outline-civic"
+               asp-controller="Requests"
+               asp-action="Mine">
+                View My Reports
+            </a>
+        </div>
+
+        <div class="bottom-info-card">
+            <div>
+                <p class="eyebrow">MAKE A DIFFERENCE</p>
+                <h2>Something needs attention?</h2>
+                <p>
+                    Submit a report to bring a local issue to the
+                    attention of the relevant team.
+                </p>
+            </div>
+
+            <a class="btn btn-civic-primary"
+               asp-controller="Requests"
+               asp-action="Create">
+                Submit a Report
+            </a>
+        </div>
+    </section>
+</div>

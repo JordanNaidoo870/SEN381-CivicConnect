@@ -1,0 +1,71 @@
+@{
+    ViewData["Title"] = "My Reports";
+}
+
+<section class="dashboard-page">
+    <div class="dashboard-heading">
+        <div>
+            <span class="eyebrow">YOUR SUBMISSIONS</span>
+            <h1>My Reports</h1>
+            <p class="page-description">Search your reports and follow their progress.</p>
+        </div>
+    <a asp-controller="Community" asp-action="SubmitReport" class="btn btn-civic-primary">+ Submit a Report</a>
+</div>
+
+<div class="filter-bar">
+    <input type="search" id="reportSearch" class="form-control" placeholder="Search reports by title or location...">
+
+    <select id="statusFilter" class="form-select">
+        <option value="">All statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+    </select>
+</div>
+
+<div class="content-card table-responsive">
+    <table class="table civic-table align-middle" id="reportsTable">
+        <thead>
+            <tr>
+                <th>Report</th>
+                <th>Location</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Potholes on main road</strong><small>CC-1001</small></td>
+                <td>Soweto</td>
+                <td>08 Oct 2026</td>
+                <td><span class="status-badge status-progress">In Progress</span></td>
+                <td><a asp-action="ReportDetails" asp-route-id="1001" class="text-link">View →</a></td>
+            </tr>
+            <tr>
+                <td><strong>Broken streetlight</strong><small>CC-1002</small></td>
+                <td>Orlando</td>
+                <td>06 Oct 2026</td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+                <td><a asp-action="ReportDetails" asp-route-id="1002" class="text-link">View →</a></td>
+            </tr>
+            <tr>
+                <td><strong>Water leak near park</strong><small>CC-1003</small></td>
+                <td>Diepkloof</td>
+                <td>02 Oct 2026</td>
+                <td><span class="status-badge status-resolved">Resolved</span></td>
+                <td><a asp-action="ReportDetails" asp-route-id="1003" class="text-link">View →</a></td>
+            </tr>
+            <tr>
+                <td><strong>Illegal dumping</strong><small>CC-1004</small></td>
+                <td>Protea Glen</td>
+                <td>29 Sep 2026</td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+                <td><a asp-action="ReportDetails" asp-route-id="1004" class="text-link">View →</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="noReports" class="empty-state" hidden>No reports match your search.</div>
+</div>
+</section>

@@ -1,0 +1,151 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-content">
+            <span class="eyebrow">YOUR COMMUNITY. YOUR VOICE.</span>
+
+        <h1>Better communities begin with <span>being heard.</span></h1>
+
+        <p class="hero-description">
+            CivicConnect helps residents report local problems and follow
+            their progress. From damaged roads to broken streetlights,
+            make your voice count.
+        </p>
+
+        <div class="hero-actions">
+            <a asp-controller="Account" asp-action="Register"
+               class="btn btn-civic-primary">Get Started →</a>
+
+            <a asp-controller="Community" asp-action="MyReports"
+               class="btn btn-outline-civic">Explore Reports</a>
+        </div>
+
+        <div class="hero-note">
+            <span class="online-dot"></span>
+            A better way to connect communities and local services.
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="hero-illustration">
+            <div class="illustration-sun"></div>
+            <div class="illustration-building building-one"></div>
+            <div class="illustration-building building-two"></div>
+            <div class="illustration-building building-three"></div>
+            <div class="illustration-ground"></div>
+
+            <div class="floating-report">
+                <span class="report-icon">✓</span>
+                <div>
+                    <strong>Report received</strong>
+                    <small>Your voice matters</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-stat">
+            <strong>One community.</strong>
+            <span>Working towards meaningful change.</span>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">HOW IT WORKS</span>
+                <h2>Making community reporting simple.</h2>
+                <p>Three simple steps to help improve the place you call home.</p>
+            </div>
+        </div>
+    <div class="feature-grid">
+        <article class="feature-card">
+            <span class="feature-number">01</span>
+            <div class="feature-icon">✎</div>
+            <h3>Report an issue</h3>
+            <p>Tell us about a local problem, add its location and explain what needs attention.</p>
+        </article>
+
+        <article class="feature-card">
+            <span class="feature-number">02</span>
+            <div class="feature-icon">◎</div>
+            <h3>Track progress</h3>
+            <p>Follow the progress of your report and see the latest status updates.</p>
+        </article>
+
+        <article class="feature-card">
+            <span class="feature-number">03</span>
+            <div class="feature-icon">♧</div>
+            <h3>Build better communities</h3>
+            <p>Help bring attention to local challenges and support positive change.</p>
+        </article>
+    </div>
+</div>
+</section>
+
+<section class="public-reports-section section-padding">
+    <div class="container">
+        <div class="section-heading section-heading-row">
+            <div>
+                <span class="eyebrow">COMMUNITY ISSUES</span>
+                <h2>See what needs attention.</h2>
+                <p>Explore example community reports and their progress.</p>
+            </div>
+        <a asp-controller="Community" asp-action="MyReports"
+           class="text-link">Explore reports →</a>
+    </div>
+
+    <div class="public-report-grid">
+        <article class="public-report-card">
+            <div class="public-report-image road-image"><span>ROAD & TRANSPORT</span></div>
+            <div class="public-report-body">
+                <span class="status-badge status-progress">In Progress</span>
+                <h3>Potholes on the main road</h3>
+                <p>Example location: Soweto, Johannesburg</p>
+                <a asp-controller="Community" asp-action="ReportDetails" asp-route-id="1001"
+                   class="text-link">View report →</a>
+            </div>
+        </article>
+
+        <article class="public-report-card">
+            <div class="public-report-image light-image"><span>PUBLIC SAFETY</span></div>
+            <div class="public-report-body">
+                <span class="status-badge status-pending">Pending</span>
+                <h3>Streetlight not working</h3>
+                <p>Example location: Orlando, Johannesburg</p>
+                <a asp-controller="Community" asp-action="ReportDetails" asp-route-id="1002"
+                   class="text-link">View report →</a>
+            </div>
+        </article>
+
+        <article class="public-report-card">
+            <div class="public-report-image water-image"><span>WATER & SANITATION</span></div>
+            <div class="public-report-body">
+                <span class="status-badge status-resolved">Resolved</span>
+                <h3>Water leak near the park</h3>
+                <p>Example location: Diepkloof, Johannesburg</p>
+                <a asp-controller="Community" asp-action="ReportDetails" asp-route-id="1003"
+                   class="text-link">View report →</a>
+            </div>
+        </article>
+    </div>
+</div>
+</section>
+
+<section class="cta-section">
+    <div class="container cta-content">
+        <div>
+            <span class="eyebrow">YOUR VOICE MAKES A DIFFERENCE</span>
+            <h2>See a problem in your community?</h2>
+            <p>Help bring it to the attention of the people who can address it.</p>
+        </div>
+
+    <a asp-controller="Account" asp-action="Register"
+       class="btn btn-light-civic">Join CivicConnect →</a>
+</div>
+</section>

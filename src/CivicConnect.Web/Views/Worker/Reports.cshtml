@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Manage Reports";
+}
+
+<section class="dashboard-page">
+    <div class="dashboard-heading">
+        <div>
+            <span class="eyebrow">REPORT MANAGEMENT</span>
+            <h1>Community Reports</h1>
+            <p class="page-description">Search, filter and review community issues.</p>
+        </div>
+    </div>
+
+<div class="filter-bar">
+    <input type="search" id="reportSearch" class="form-control" placeholder="Search reference, report or location...">
+
+    <select id="statusFilter" class="form-select">
+        <option value="">All statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+    </select>
+</div>
+
+<div class="content-card table-responsive">
+    <table class="table civic-table align-middle" id="reportsTable">
+        <thead><tr><th>Reference</th><th>Report</th><th>Location</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+            <tr><td>CC-1001</td><td><strong>Potholes on main road</strong></td><td>Soweto</td><td>08 Oct 2026</td><td><span class="status-badge status-progress">In Progress</span></td><td><a asp-action="ReportDetails" asp-route-id="1001" class="text-link">Review →</a></td></tr>
+            <tr><td>CC-1002</td><td><strong>Broken streetlight</strong></td><td>Orlando</td><td>06 Oct 2026</td><td><span class="status-badge status-pending">Pending</span></td><td><a asp-action="ReportDetails" asp-route-id="1002" class="text-link">Review →</a></td></tr>
+            <tr><td>CC-1003</td><td><strong>Water leak near park</strong></td><td>Diepkloof</td><td>02 Oct 2026</td><td><span class="status-badge status-resolved">Resolved</span></td><td><a asp-action="ReportDetails" asp-route-id="1003" class="text-link">Review →</a></td></tr>
+            <tr><td>CC-1004</td><td><strong>Illegal dumping</strong></td><td>Protea Glen</td><td>29 Sep 2026</td><td><span class="status-badge status-pending">Pending</span></td><td><a asp-action="ReportDetails" asp-route-id="1004" class="text-link">Review →</a></td></tr>
+        </tbody>
+    </table>
+
+    <div id="noReports" class="empty-state" hidden>No reports match your search.</div>
+</div>
+
+</section>

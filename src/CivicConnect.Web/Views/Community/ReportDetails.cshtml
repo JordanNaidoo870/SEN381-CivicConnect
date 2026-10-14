@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "Report Details";
+}
+
+<section class="form-page">
+    <div class="page-back">
+        <a asp-controller="Community" asp-action="MyReports" class="text-link">← Back to My Reports</a>
+    </div>
+
+<div class="details-card">
+    <div class="details-top">
+        <div>
+            <span class="eyebrow">REPORT CC-@ViewBag.ReportId</span>
+            <h1>Potholes on main road</h1>
+            <p class="page-description">Submitted on 08 October 2026 · Soweto, Johannesburg</p>
+        </div>
+
+        <span class="status-badge status-progress">In Progress</span>
+    </div>
+
+    <hr>
+
+    <h2>Report Description</h2>
+    <p>Several potholes have developed along the road, making it difficult for residents and drivers to travel safely.</p>
+
+    <div class="details-grid">
+        <div><span class="detail-label">Category</span><strong>Roads and Transport</strong></div>
+        <div><span class="detail-label">Location</span><strong>Soweto, Johannesburg</strong></div>
+        <div><span class="detail-label">Date Submitted</span><strong>08 October 2026</strong></div>
+        <div><span class="detail-label">Current Status</span><strong>In Progress</strong></div>
+    </div>
+
+    <h2 class="timeline-heading">Report Progress</h2>
+
+    <div class="timeline">
+        <div class="timeline-item complete">
+            <span class="timeline-dot"></span>
+            <div><strong>Report submitted</strong><p>08 October 2026 · The report was received.</p></div>
+        </div>
+
+        <div class="timeline-item complete">
+            <span class="timeline-dot"></span>
+            <div><strong>Report reviewed</strong><p>09 October 2026 · The issue was reviewed.</p></div>
+        </div>
+
+        <div class="timeline-item active">
+            <span class="timeline-dot"></span>
+            <div><strong>Work in progress</strong><p>The report is being addressed.</p></div>
+        </div>
+
+        <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div><strong>Resolved</strong><p>Waiting for the issue to be resolved.</p></div>
+        </div>
+    </div>
+</div>
+</section>
