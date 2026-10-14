@@ -1,0 +1,12 @@
+@model DashboardMetrics
+@{ ViewData["Title"] = "Management dashboard"; }
+<h1 class="h2">Service activity overview</h1>
+<p class="text-muted">Aggregated operational statistics; personal request details are restricted by role.</p>
+<div class="row g-3 mb-4">
+ @foreach (var metric in new[]{ ("Total",Model.Total), ("Pending",Model.Pending), ("In progress",Model.InProgress), ("Resolved",Model.Resolved), ("Closed",Model.Closed), ("Overdue (7+ days)",Model.Overdue) }) {
+  <div class="col-md-4 col-lg-2"><div class="card text-center"><div class="card-body"><div class="display-6 fw-semibold">@metric.Item2</div><small>@metric.Item1</small></div></div></div>
+ }
+</div>
+<h2 class="h5">Requests by category</h2>
+<div class="card"><div class="table-responsive"><table class="table mb-0"><thead><tr><th>Category</th><th>Count</th></tr></thead><tbody>@foreach(var category in Model.ByCategory){<tr><td>@category.Name</td><td>@category.Count</td></tr>}</tbody></table></div></div>
+<p class="text-muted small mt-3">Overdue is a provisional reporting rule (open more than 7 days), not an approved service-level agreement.</p>

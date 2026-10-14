@@ -1,0 +1,13 @@
+@model RegisterForm
+@{ ViewData["Title"] = "Register"; }
+<div class="narrow card shadow-sm"><div class="card-body p-4">
+ <h1 class="h3 mb-3">Create a requester account</h1>
+ <form asp-action="Register" method="post">
+  <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+  <div class="mb-3"><label asp-for="DisplayName" class="form-label"></label><input asp-for="DisplayName" class="form-control" autocomplete="name" /></div>
+  <div class="mb-3"><label asp-for="Email" class="form-label"></label><input asp-for="Email" class="form-control" autocomplete="email" /></div>
+  <div class="mb-3"><label asp-for="Password" class="form-label"></label><input asp-for="Password" class="form-control" autocomplete="new-password" /><small class="form-text">At least 10 characters, uppercase letter, number and symbol.</small></div>
+  <div class="mb-3"><label asp-for="ConfirmPassword" class="form-label"></label><input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" /></div>
+  <button type="submit" class="btn btn-primary w-100">Register</button>
+ </form>
+</div></div>

@@ -1,0 +1,37 @@
+name: CivicConnect build and verification
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore
+        run: dotnet restore CivicConnect.sln
+      - name: Build and .NET analyzers
+        run: dotnet build CivicConnect.sln --no-restore -c Release --warnaserror:CS8600,CS8602,CS8604
+      - name: Run automated tests (blocking)
+        run: dotnet test CivicConnect.sln --no-build -c Release --logger 'trx;LogFileName=m3-tests.trx' --results-directory TestResults
+      - name: Dependency vulnerability inventory (review findings)
+        run: dotnet package list --project CivicConnect.sln --vulnerable --include-transitive
+      - name: Verify no accidental hard-coded credential assignments (basic guard)
+        shell: bash
+        run: |
+          if grep -RniE '(Password|ApiKey|Secret)[[:space:]]*=[[:space:]]*"[^"$]{8,}"' src --include='*.cs' | grep -v 'TemporaryPassword' | grep -v 'TestPassword'; then
+            echo 'Review potential embedded credentials'; exit 1
+          fi
+      - name: Upload test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m3-test-results
+          path: TestResults/
