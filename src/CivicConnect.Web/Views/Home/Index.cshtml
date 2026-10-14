@@ -1,0 +1,21 @@
+@{ ViewData["Title"] = "Home"; }
+<section class="hero rounded-4 p-5 mb-4 text-white">
+ <p class="text-uppercase text-info fw-semibold small">Community service request platform</p>
+ <h1 class="display-5 fw-bold">Report it. Track it. Resolve it.</h1>
+ <p class="lead col-md-8">CivicConnect helps residents submit service requests, staff manage work, and management see progress in one accountable system.</p>
+ @if (User.Identity?.IsAuthenticated != true) {
+  <a class="btn btn-info btn-lg me-2" asp-controller="Account" asp-action="Register">Create an account</a>
+  <a class="btn btn-outline-light btn-lg" asp-controller="Account" asp-action="Login">Log in</a>
+ } else if (User.IsInRole(Roles.Requester)) {
+  <a class="btn btn-info btn-lg" asp-controller="Requests" asp-action="Create">Submit a new request</a>
+ } else if (User.IsInRole(Roles.Management)) {
+  <a class="btn btn-info btn-lg" asp-controller="Management" asp-action="Index">View service activity</a>
+ } else {
+  <a class="btn btn-info btn-lg" asp-controller="Staff" asp-action="Queue">Open staff queue</a>
+ }
+</section>
+<div class="row g-3">
+ <div class="col-md-4"><div class="card h-100"><div class="card-body"><h2 class="h5">Submit</h2><p>Choose a service category, describe the issue and give a location.</p></div></div></div>
+ <div class="col-md-4"><div class="card h-100"><div class="card-body"><h2 class="h5">Track</h2><p>Check whether your request is pending, in progress, resolved or closed.</p></div></div></div>
+ <div class="col-md-4"><div class="card h-100"><div class="card-body"><h2 class="h5">Accountability</h2><p>Staff actions, status transitions and official replies are recorded.</p></div></div></div>
+</div>

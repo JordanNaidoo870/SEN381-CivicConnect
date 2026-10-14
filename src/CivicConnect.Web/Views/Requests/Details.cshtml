@@ -1,0 +1,47 @@
+@model RequestDetailsPage
+@{ var r = Model.Details.Request; ViewData["Title"] = $"Request #{r.Id}"; }
+<div class="d-flex justify-content-between flex-wrap align-items-start gap-2 mb-3">
+ <div><p class="text-muted mb-1">Request #@r.Id</p><h1 class="h2">@r.Title</h1><p class="text-muted">@r.Category • @r.Location</p></div>
+ <span class="badge text-bg-primary fs-6">@r.Status</span>
+</div>
+<div class="row g-4">
+ <div class="col-lg-8">
+  <div class="card mb-3"><div class="card-body"><h2 class="h5">Description</h2><p style="white-space:pre-wrap">@Model.Details.Description</p><small class="text-muted">Created @r.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm") UTC • Updated @r.UpdatedAtUtc.ToString("yyyy-MM-dd HH:mm") UTC</small></div></div>
+  <div class="card mb-3"><div class="card-body"><h2 class="h5">History</h2>
+   @if (Model.Details.History.Count == 0){<p class="text-muted">No status changes yet. Initial status: Pending.</p>}
+   @foreach(var h in Model.Details.History){<div class="border-start border-3 ps-3 mb-3"><strong>@h.OldStatus → @h.NewStatus</strong><div class="text-muted small">@h.AtUtc.ToString("yyyy-MM-dd HH:mm") UTC</div>@if (!string.IsNullOrWhiteSpace(h.Comment)){<p>@h.Comment</p>}</div>}
+  </div></div>
+  <div class="card mb-3"><div class="card-body"><h2 class="h5">Conversation and official replies</h2>
+    @if (Model.Details.Comments.Count == 0){<p class="text-muted">No comments yet.</p>}
+    @foreach(var c in Model.Details.Comments){<div class="border-bottom pb-2 mb-3"><div class="d-flex gap-2"><strong>@(c.Official ? "Official staff reply" : "Requester")</strong><small class="text-muted">@c.AtUtc.ToString("yyyy-MM-dd HH:mm") UTC</small></div><p style="white-space:pre-wrap">@c.Body</p></div>}
+    <form asp-action="AddComment" method="post"><input type="hidden" name="Id" value="@r.Id"/><label class="form-label" for="comment">Add a @(Model.CanManage ? "staff reply" : "comment")</label><textarea id="comment" class="form-control mb-2" name="Body" maxlength="1500" required rows="3"></textarea><button class="btn btn-primary btn-sm" type="submit">Post comment</button></form>
+  </div></div>
+  <div class="card"><div class="card-body"><h2 class="h5">Attachments</h2>
+   @foreach (var a in Model.Details.Attachments){<div><a asp-action="Download" asp-route-id="@a.Id">@a.FileName</a> <small class="text-muted">(@a.ContentType)</small></div>}
+   @if (Model.Details.Attachments.Count == 0){<p class="text-muted">No attachments.</p>}
+   @if (Model.IsRequester){<form asp-action="Upload" asp-route-id="@r.Id" enctype="multipart/form-data" method="post"><label for="file" class="form-label mt-2">Attach image or MP4 (max 10MB)</label><input class="form-control mb-2" type="file" name="file" id="file" accept=".jpg,.jpeg,.png,.mp4" required /><button class="btn btn-outline-primary btn-sm" type="submit">Upload attachment</button></form>}
+  </div></div>
+ </div>
+ <aside class="col-lg-4">
+  @if (Model.CanManage){
+   <div class="card mb-3"><div class="card-body"><h2 class="h5">Assign responsibility</h2><p class="small text-muted">Current: @(r.AssignedStaffId is null ? "Unassigned" : "Assigned")</p>
+    <form asp-action="Assign" method="post"><input name="Id" type="hidden" value="@r.Id"/><input name="Version" type="hidden" value="@r.Version"/>
+    @if (Model.IsAdmin){<label class="form-label" for="staffId">Staff member</label><select id="staffId" class="form-select mb-2" name="StaffId" required>@foreach (var staff in Model.Staff){<option value="@staff.Id" selected="@(r.AssignedStaffId == staff.Id)">@staff.Name</option>}</select>}
+    else {<input type="hidden" name="StaffId" value="@Model.CurrentUserId"/>}
+    <button class="btn btn-outline-primary btn-sm" type="submit">@(Model.IsAdmin ? "Save assignment" : "Accept request")</button></form>
+   </div></div>
+   <div class="card"><div class="card-body"><h2 class="h5">Update status</h2>
+    <form asp-action="ChangeStatus" method="post"><input type="hidden" name="Id" value="@r.Id"/><input type="hidden" name="Version" value="@r.Version"/>
+     <label class="form-label" for="nextStatus">New status</label><select id="nextStatus" name="NextStatus" class="form-select mb-2" required>
+      @if (r.Status == RequestStatus.Pending){<option value="InProgress">In Progress</option>}
+      @if (r.Status == RequestStatus.InProgress){<option value="Resolved">Resolved</option>}
+      @if (r.Status == RequestStatus.Resolved){<option value="Closed">Closed</option><option value="InProgress">Reopen to In Progress</option>}
+     </select>
+     <label class="form-label" for="statusComment">Resolution / action note (optional)</label><textarea id="statusComment" name="Comment" class="form-control mb-2" maxlength="1500" rows="3"></textarea>
+     <button type="submit" class="btn btn-primary btn-sm" disabled="@(r.Status == RequestStatus.Closed)">Save status</button>
+    </form>
+    <p class="text-muted small mt-2">Updates are recorded with timestamp, user and request version.</p>
+   </div></div>
+  }
+ </aside>
+</div>

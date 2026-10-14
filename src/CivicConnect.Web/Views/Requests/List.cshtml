@@ -1,0 +1,28 @@
+@model RequestListPage
+@{ ViewData["Title"] = Model.Heading; }
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3"><h1 class="h2">@Model.Heading</h1>
+@if (User.IsInRole(Roles.Requester)){<a class="btn btn-primary" asp-controller="Requests" asp-action="Create">New request</a>}
+</div>
+<form method="get" class="row g-2 bg-light border rounded p-3 mb-4" aria-label="Filter requests">
+ <div class="col-lg-3"><label for="search" class="form-label">Search</label><input id="search" class="form-control" name="search" value="@Model.Filters.Search" /></div>
+ <div class="col-lg-2"><label for="status" class="form-label">Status</label><select id="status" class="form-select" name="status"><option value="">All</option>@foreach (RequestStatus state in Enum.GetValues<RequestStatus>()){<option selected="@(Model.Filters.Status == state)" value="@state">@state</option>}</select></div>
+ @if (!User.IsInRole(Roles.Requester)) {
+ <div class="col-lg-2"><label for="categoryId" class="form-label">Category</label><select name="categoryId" id="categoryId" class="form-select"><option value="">All</option>@foreach(var cat in Model.Categories){<option selected="@(Model.Filters.CategoryId == cat.Id)" value="@cat.Id">@cat.Name</option>}</select></div>
+ <div class="col-lg-2"><label for="sort" class="form-label">Sort</label><select id="sort" name="sort" class="form-select"><option value="newest">Newest</option><option selected="@(Model.Filters.Sort == "oldest")" value="oldest">Oldest</option><option selected="@(Model.Filters.Sort == "status")" value="status">Status</option></select></div>
+ }
+ @if (!User.IsInRole(Roles.Requester)) {
+ <div class="col-lg-2"><label for="fromUtc" class="form-label">From date</label><input id="fromUtc" name="fromUtc" type="date" class="form-control" value="@(Model.Filters.FromUtc?.ToString("yyyy-MM-dd"))" /></div>
+ <div class="col-lg-2"><label for="toUtc" class="form-label">To date</label><input id="toUtc" name="toUtc" type="date" class="form-control" value="@(Model.Filters.ToUtc?.ToString("yyyy-MM-dd"))" /></div>
+ }
+ <div class="col-lg-2 align-self-end"><button class="btn btn-outline-primary" type="submit">Apply filters</button></div>
+</form>
+<div class="card"><div class="table-responsive">
+<table class="table table-hover align-middle mb-0"><thead><tr><th scope="col">ID</th><th scope="col">Title</th><th scope="col">Category</th><th scope="col">Status</th><th scope="col">Created</th><th scope="col">Action</th></tr></thead><tbody>
+@foreach(var item in Model.Results.Items){
+<tr><td>#@item.Id</td><td>@item.Title<br /><small class="text-muted">@item.Location</small></td><td>@item.Category</td><td><span class="badge text-bg-secondary">@item.Status</span></td><td>@item.CreatedAtUtc.ToString("yyyy-MM-dd")</td><td><a class="btn btn-sm btn-outline-primary" asp-controller="Requests" asp-action="Details" asp-route-id="@item.Id">Details</a></td></tr>
+}
+@if (Model.Results.Items.Count == 0){<tr><td colspan="6" class="text-center p-4">No matching requests found.</td></tr>}
+</tbody></table></div></div>
+<p class="text-muted mt-3">Showing @Model.Results.Items.Count of @Model.Results.Total matching requests. Page @Model.Results.Page.</p>
+@if (Model.Results.Page > 1){<a class="btn btn-outline-secondary" href="?page=@(Model.Results.Page-1)&search=@(Uri.EscapeDataString(Model.Filters.Search ?? ""))&status=@Model.Filters.Status&categoryId=@Model.Filters.CategoryId&sort=@Model.Filters.Sort&fromUtc=@(Model.Filters.FromUtc?.ToString("yyyy-MM-dd"))&toUtc=@(Model.Filters.ToUtc?.ToString("yyyy-MM-dd"))">Previous</a>}
+@if (Model.Results.Page * Model.Results.PageSize < Model.Results.Total){<a class="btn btn-outline-secondary" href="?page=@(Model.Results.Page+1)&search=@(Uri.EscapeDataString(Model.Filters.Search ?? ""))&status=@Model.Filters.Status&categoryId=@Model.Filters.CategoryId&sort=@Model.Filters.Sort&fromUtc=@(Model.Filters.FromUtc?.ToString("yyyy-MM-dd"))&toUtc=@(Model.Filters.ToUtc?.ToString("yyyy-MM-dd"))">Next</a>}

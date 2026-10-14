@@ -1,0 +1,14 @@
+@model CreateRequestForm
+@{ ViewData["Title"] = "Submit request"; }
+<h1 class="h2">Submit a service request</h1>
+<p class="text-muted">Provide a clear description and location to help staff investigate your report.</p>
+<div class="card"><div class="card-body">
+ <form asp-action="Create" method="post">
+  <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+  <div class="mb-3"><label asp-for="Title" class="form-label"></label><input asp-for="Title" class="form-control" placeholder="e.g. Broken water pipe on Main Street" /><span asp-validation-for="Title" class="text-danger"></span></div>
+  <div class="mb-3"><label asp-for="CategoryId" class="form-label">Issue category</label><select asp-for="CategoryId" class="form-select"><option value="0">Choose category</option>@foreach(var category in Model.Categories){<option value="@category.Id">@category.Name</option>}</select><span asp-validation-for="CategoryId" class="text-danger"></span></div>
+  <div class="mb-3"><label asp-for="Location" class="form-label"></label><input asp-for="Location" class="form-control" placeholder="Street, building or area" /><span asp-validation-for="Location" class="text-danger"></span></div>
+  <div class="mb-3"><label asp-for="Description" class="form-label"></label><textarea asp-for="Description" class="form-control" rows="5" placeholder="Describe the issue and its impact"></textarea><span asp-validation-for="Description" class="text-danger"></span></div>
+  <button class="btn btn-primary" type="submit">Submit request</button> <a asp-action="Index" class="btn btn-link">Cancel</a>
+ </form>
+</div></div>
