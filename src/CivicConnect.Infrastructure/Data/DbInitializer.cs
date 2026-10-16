@@ -12,11 +12,8 @@ public static class DbInitializer
         RoleManager<IdentityRole> roles, UserManager<ApplicationUser> users,
         IConfiguration configuration, ILogger logger)
     {
-        // For a clean educational database, EnsureCreated works without generated migrations.
-        // Once EF migrations are introduced, apply them instead. Do not mix EnsureCreated
-        // with an existing migration history: see docs/DEVELOPMENT.md before upgrading schema.
-        if (db.Database.GetMigrations().Any())
-            await db.Database.MigrateAsync();
+       
+        if (db.Database.GetMigrations().Any()) await db.Database.MigrateAsync();
         else await db.Database.EnsureCreatedAsync();
 
         foreach (var role in new[] { Roles.Requester, Roles.Staff, Roles.Management, Roles.Administrator })
@@ -47,7 +44,6 @@ public static class DbInitializer
                 logger.LogInformation("Configured initial administrator account using environment-provided credentials.");
             }
             // Never turn an existing self-registered requester into an administrator
-            // simply because their email matches the configured bootstrap email.
             if (!await users.IsInRoleAsync(user, Roles.Administrator))
             {
                 if (!newlyCreated)

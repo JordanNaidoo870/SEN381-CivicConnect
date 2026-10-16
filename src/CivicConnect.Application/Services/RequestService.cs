@@ -33,8 +33,6 @@ public sealed class RequestService(IRequestRepository repo, IStatusEventPublishe
         var result = await repo.ChangeStatusAsync(id, next, expectedVersion, actorId, comment?.Trim(), correlationId, ct);
         if (result.Success)
         {
-            // Secondary in-process event runs only after the database transaction committed.
-            // Notification/logging failures cannot roll back or corrupt the committed status/history.
             await publisher.PublishAsync(new(id, existing.Request.Status, next, actorId, DateTime.UtcNow), ct);
         }
         return result;

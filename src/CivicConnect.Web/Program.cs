@@ -22,14 +22,14 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
     options.Lockout.MaxFailedAccessAttempts = 5;
-    options.SignIn.RequireConfirmedAccount = false; // Email verification service is not in committed scope.
+    options.SignIn.RequireConfirmedAccount = false; 
 }).AddEntityFrameworkStores<CivicConnectDbContext>().AddDefaultTokenProviders();
 builder.Services.ConfigureApplicationCookie(cookie =>
 {
     cookie.Cookie.HttpOnly = true;
     cookie.Cookie.SameSite = SameSiteMode.Lax;
-    // Local HTTP simulated staging is for localhost demonstrations only.
-    // Production cookies remain Secure and must be served through HTTPS/TLS.
+    
+    // Production cookies remain Secure
     cookie.Cookie.SecurePolicy = builder.Environment.IsProduction()
         ? CookieSecurePolicy.Always : CookieSecurePolicy.SameAsRequest;
     cookie.LoginPath = "/Account/Login";
