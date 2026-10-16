@@ -15,7 +15,6 @@ public sealed class LoggingStatusPublisher(ILogger<LoggingStatusPublisher> logge
         }
         catch (Exception error)
         {
-            // Informational reactions do not corrupt already committed transactional work.
             logger.LogError(error, "Non-critical status-change event processing failed for request {RequestId}", evt.RequestId);
         }
         return Task.CompletedTask;

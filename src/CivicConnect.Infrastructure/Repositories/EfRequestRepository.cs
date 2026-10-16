@@ -161,14 +161,18 @@ public sealed class EfRequestRepository(CivicConnectDbContext db, UserManager<Ap
         var threshold = nowUtc.AddDays(-7); // Proposed reporting convention; configurable later.
         var overdue = await db.ServiceRequests.CountAsync(r =>
             (r.Status == RequestStatus.Pending || r.Status == RequestStatus.InProgress) && r.CreatedAtUtc < threshold, ct);
-        // Keep the grouping and sorting SQL-translatable, then build DTOs in memory.
-        var categoryCounts = await db.ServiceRequests
-            .AsNoTracking()
-            .GroupBy(x => x.Category!.Name)
-            .Select(g => new { Name = g.Key, Count = g.Count() })
-            .OrderByDescending(x => x.Count)
-            .ToListAsync(ct);
-        var counts = categoryCounts
+        var grouped = await db.ServiceRequests
+    .AsNoTracking()
+    .GroupBy(r => r.Category!.Name)
+    .Select(g => new
+    {
+        Name = g.Key,
+        Count = g.Count()
+    })
+    .OrderByDescending(x => x.Count)
+    .ToListAsync(ct);
+
+        var counts = grouped
             .Select(x => new CategoryCount(x.Name, x.Count))
             .ToList();
         return new DashboardMetrics(total, pending, inProgress, resolved, closed, overdue, counts);
